@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DrishtiAI Application</string>
+    <string name="drive_slowly">DRIVE SLOWLY</string>
+    <string name="detected_text">Detected Text</string>
+    <string name="auto_illuminate_dark_areas">Auto-illuminate dark areas</string>
+    <string name="start_scanning">Start Scanning</string>
+</resources>

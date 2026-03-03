@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "818303182210",
+    "project_id": "drishtiai-application",
+    "storage_bucket": "drishtiai-application.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818303182210:android:b02a3a97f89ff728ed9b9b",
+        "android_client_info": {
+          "package_name": "com.example.drishtiaiapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3iulRWiwPj5ztZo10fWw0alExr5VsK1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Top Bar -->
+    <dimen name="padding_top_bar">24dp</dimen>
+
+    <!-- General Padding -->
+    <dimen name="padding_horizontal">32dp</dimen>
+    <dimen name="padding_vertical">24dp</dimen>
+    <dimen name="padding_bottom_fab">90dp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_padding">28dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_margin">28dp</dimen>
+
+    <!-- Scanner Circle -->
+    <dimen name="scanner_circle_min_height">350dp</dimen>
+    <dimen name="scanner_circle_max_height">450dp</dimen>
+
+    <!-- Button -->
+    <dimen name="button_height">56dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_title">24sp</dimen>
+    <dimen name="text_size_button">18sp</dimen>
+    <dimen name="text_size_content">36sp</dimen>
+    <dimen name="text_size_label">12sp</dimen>
+</resources>
