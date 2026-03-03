@@ -30,11 +30,12 @@ class MainActivity : AppCompatActivity() {
     private var isScanning = false
     private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var binding: ActivityMainBinding
+    private var lastSpokenText = ""
     private val recognizer = TextRecognition.getClient(
         TextRecognizerOptions.DEFAULT_OPTIONS
     )
 
-    private lateinit var tts: TextToSpeech
+    private lateinit var textToSpeech: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -63,9 +64,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        tts = TextToSpeech(this) {
-            if (it == TextToSpeech.SUCCESS) {
-                tts.language = Locale.ENGLISH
+
+        textToSpeech = TextToSpeech(this) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeech.language = Locale.US
+                textToSpeech.setSpeechRate(0.9f)  // slower for accessibility
             }
         }
 
@@ -102,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             ) { imageProxy ->
 
                 val mediaImage = imageProxy.image
-
                 if (mediaImage != null) {
 
                     val image = InputImage.fromMediaImage(
@@ -113,10 +115,13 @@ class MainActivity : AppCompatActivity() {
                     recognizer.process(image)
                         .addOnSuccessListener { visionText ->
 
-                            val detectedText = visionText.text.trim()
+                            val detectedText = visionText.text
 
-                            if (detectedText.isNotEmpty()) {
-                                binding.tvDetectedContent.text = detectedText
+                            binding.tvDetectedContent.text = detectedText
+
+                            if (detectedText.isNotEmpty() && detectedText != lastSpokenText) {
+                                lastSpokenText = detectedText
+                                processSignboard(detectedText)
                             }
 
                         }
@@ -124,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                             it.printStackTrace()
                         }
                         .addOnCompleteListener {
-                            imageProxy.close()   // MUST close
+                            imageProxy.close()   // VERY IMPORTANT
                         }
 
                 } else {
@@ -157,25 +162,14 @@ class MainActivity : AppCompatActivity() {
         isScanning = false
     }
 
-    private fun processText(image: InputImage) {
-
-        recognizer.process(image)
-            .addOnSuccessListener { visionText ->
-
-                val detectedText = visionText.text
-
-                if (detectedText.isNotEmpty()) {
-                    speakText(detectedText)
-                }
-            }
-            .addOnFailureListener {
-                it.printStackTrace()
-            }
-    }
     private fun speakText(text: String) {
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+        textToSpeech.speak(
+            text,
+            TextToSpeech.QUEUE_FLUSH,
+            null,
+            null
+        )
     }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -192,5 +186,25 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Camera permission required", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun processSignboard(text: String) {
+        val upperText = text.uppercase()
+
+        when {
+            upperText.contains("STOP") -> speakText("Stop sign ahead")
+            upperText.contains("NO ENTRY") -> speakText("No entry")
+            upperText.contains("SPEED") -> speakText("Speed limit sign")
+            upperText.contains("LEFT") -> speakText("Turn left")
+            upperText.contains("RIGHT") -> speakText("Turn right")
+            upperText.contains("HOSPITAL") -> speakText("Hospital nearby")
+            upperText.contains("SCHOOL") -> speakText("School zone")
+            else -> speakText(text)
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        textToSpeech.stop()
+        textToSpeech.shutdown()
     }
 }
