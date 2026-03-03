@@ -1,6 +1,7 @@
 package com.example.drishtiaiapplication
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -66,6 +67,15 @@ class MainActivity : AppCompatActivity() {
             if (it == TextToSpeech.SUCCESS) {
                 tts.language = Locale.ENGLISH
             }
+        }
+
+        binding.btnSettings.setOnClickListener {
+
+            startActivity(Intent(this, SettingsActivity::class.java))
+            overridePendingTransition(
+                android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right
+            )
         }
     }
 

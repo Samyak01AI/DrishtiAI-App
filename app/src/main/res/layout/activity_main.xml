@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@drawable/bg_main_gradient">
 
-    <!-- Top Bar - Compact with responsive padding -->
     <LinearLayout
         android:id="@+id/topBar"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="30dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_top_bar"
@@ -22,10 +20,8 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="@drawable/primary_circle"
             android:padding="6dp"
-            android:src="@android:drawable/ic_menu_camera"
-            app:tint="@color/background" />
+            android:src="@drawable/camera" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,13 +41,12 @@
             android:id="@+id/btnSettings"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/secondary_circle"
-            android:src="@android:drawable/ic_lock_silent_mode_off"
-            android:padding="8dp"
-            app:tint="@color/text_primary" />
+            android:src="@drawable/ic_settings"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
+            app:tint="#FFFFFF" />
     </LinearLayout>
 
-    <!-- Main Content ScrollView for smaller devices -->
     <ScrollView
         android:id="@+id/contentScroll"
         android:layout_width="0dp"
@@ -163,12 +158,10 @@
         android:id="@+id/fabMic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_btn_speak_now"
-        android:tint="@color/background"
-        app:backgroundTint="@color/primary"
+        android:src="@drawable/ic_mic"
+        app:backgroundTint="@color/border"
         app:fabSize="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/fab_margin" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
